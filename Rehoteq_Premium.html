@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Rehoteq Global Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#1a1207;--paper:#fdfaf4;--warm:#f5efe0;--cream:#fffdf8;
+  --forest:#1c3a2a;--forest2:#2a5040;--forest3:#3a6b55;
+  --gold:#b8860b;--gold2:#d4a520;--gold3:#f0c040;--gold-pale:#fef7e0;
+  --rust:#8b3a1a;--sky:#1a3a5c;
+  --border:rgba(184,134,11,0.2);--border2:rgba(28,58,42,0.15);
+  --shadow:0 2px 20px rgba(26,18,7,0.08);--shadow-lg:0 8px 40px rgba(26,18,7,0.14);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;font-size:15px;}
+
+/* ---- HEADER ---- */
+header{
+  background:var(--forest);
+  border-bottom:3px solid var(--gold);
+  padding:0 2rem;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:300;
+  box-shadow:0 2px 24px rgba(0,0,0,0.25);
+}
+.logo{display:flex;align-items:center;gap:12px;}
+.logo-seal{
+  width:44px;height:44px;border-radius:50%;
+  background:linear-gradient(145deg,var(--gold2),var(--gold3),var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;
+  color:var(--forest);border:2px solid rgba(255,255,255,0.25);
+  box-shadow:0 0 0 3px rgba(212,165,32,0.3),0 4px 12px rgba(0,0,0,0.3);
+}
+.logo-words h1{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#fff;line-height:1.1;}
+.logo-words p{font-size:0.62rem;color:rgba(255,255,255,0.55);letter-spacing:0.12em;text-transform:uppercase;}
+nav{display:flex;gap:2px;flex-wrap:wrap;}
+.nb{
+  padding:0.42rem 1rem;border-radius:6px;border:none;
+  background:transparent;color:rgba(255,255,255,0.6);
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:0.8rem;font-weight:500;
+  cursor:pointer;transition:all 0.18s;white-space:nowrap;
+}
+.nb:hover{color:#fff;background:rgba(255,255,255,0.1);}
+.nb.active{background:var(--gold);color:var(--forest);font-weight:700;}
+.hdr-r{display:flex;align-items:center;gap:10px;}
+.upill{
+  display:none;align-items:center;gap:8px;
+  background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);
+  border-radius:20px;padding:5px 14px;color:#fff;font-size:0.76rem;
+}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);}}
+.btn-out{
+  display:none;background:rgba(139,58,26,0.8);border:1px solid rgba(220,100,60,0.4);
+  color:#ffd0b0;border-radius:6px;padding:5px 12px;font-size:0.76rem;
+  cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;
+}
+
+/* ---- SECTIONS ---- */
+section{display:none;padding:2rem;max-width:1180px;margin:0 auto;animation:fadeUp 0.35s ease;}
+section.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+/* ---- LOGIN ---- */
+#login{
+  display:flex;align-items:center;justify-content:center;
+  min-height:calc(100vh - 64px);
+  background:linear-gradient(150deg,var(--forest) 0%,#0f2019 55%,#1a1207 100%);
+  position:relative;overflow:hidden;
+}
+#login.active{display:flex;}
+#login::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 15% 20%,rgba(212,165,32,0.06) 0%,transparent 65%),
+    radial-gradient(ellipse 40% 60% at 85% 80%,rgba(58,107,85,0.15) 0%,transparent 60%);
+}
+#login::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,0.012) 39px,rgba(255,255,255,0.012) 40px),
+    repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,0.012) 39px,rgba(255,255,255,0.012) 40px);
+}
+.lcard{
+  position:relative;z-index:2;
+  background:rgba(253,250,244,0.97);
+  border-radius:20px;padding:2.5rem;
+  width:100%;max-width:430px;
+  box-shadow:0 24px 80px rgba(0,0,0,0.5),0 0 0 1px rgba(212,165,32,0.3);
+  border-top:4px solid var(--gold2);
+}
+.lcard-top{text-align:center;margin-bottom:2rem;}
+.lseal{
+  width:76px;height:76px;border-radius:50%;margin:0 auto 1rem;
+  background:linear-gradient(145deg,var(--forest),var(--forest2));
+  border:3px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--gold2);
+  box-shadow:0 6px 24px rgba(28,58,42,0.4),0 0 0 6px rgba(184,134,11,0.12);
+}
+.lcard-top h2{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:700;color:var(--forest);}
+.lcard-top p{font-size:0.78rem;color:#888;margin-top:3px;}
+.rtabs{display:flex;gap:3px;background:var(--warm);border-radius:10px;padding:3px;margin-bottom:1.4rem;}
+.rtab{
+  flex:1;padding:8px 4px;border:none;border-radius:7px;
+  background:transparent;color:#888;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:0.76rem;font-weight:600;
+  cursor:pointer;transition:all 0.2s;
+}
+.rtab.active{background:var(--forest);color:#fff;box-shadow:0 2px 8px rgba(28,58,42,0.3);}
+.fg{margin-bottom:1rem;}
+.fg label{display:block;font-size:0.68rem;font-weight:700;color:#888;
+  text-transform:uppercase;letter-spacing:0.09em;margin-bottom:5px;}
+.fg input,.fg select{
+  width:100%;padding:11px 14px;
+  background:#fff;border:1.5px solid #e0d8c8;border-radius:9px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;color:var(--ink);
+  transition:all 0.2s;
+}
+.fg input:focus,.fg select:focus{outline:none;border-color:var(--forest3);
+  box-shadow:0 0 0 3px rgba(58,107,85,0.1);}
+.btn-login{
+  width:100%;padding:13px;margin-top:6px;
+  background:linear-gradient(135deg,var(--forest),var(--forest2));
+  color:#fff;border:none;border-radius:9px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:0.95rem;font-weight:700;
+  cursor:pointer;letter-spacing:0.03em;
+  box-shadow:0 4px 16px rgba(28,58,42,0.35);transition:all 0.2s;
+}
+.btn-login:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(28,58,42,0.45);}
+.lhint{text-align:center;font-size:0.72rem;color:#aaa;margin-top:12px;line-height:1.8;}
+.lhint b{color:var(--gold);font-family:'JetBrains Mono',monospace;}
+
+/* ---- DEMO BANNER ---- */
+.demo-bar{
+  background:linear-gradient(135deg,var(--forest),var(--forest2));
+  border:1px solid rgba(184,134,11,0.3);border-radius:10px;
+  padding:12px 18px;margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:10px;font-size:0.83rem;
+  border-left:4px solid var(--gold2);
+}
+.demo-bar b{color:var(--gold3);}
+
+/* ---- PAGE HEADER ---- */
+.ph{display:flex;justify-content:space-between;align-items:flex-start;
+  flex-wrap:wrap;gap:10px;margin-bottom:1.5rem;}
+.ph h2{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--forest);}
+.ph h2 em{font-style:normal;color:var(--gold);}
+.ph p{font-size:0.82rem;color:#888;margin-top:2px;}
+
+/* ---- STATS ---- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:1.5rem;}
+.scard{
+  background:#fff;border:1px solid var(--border2);border-radius:13px;
+  padding:1.2rem;text-align:center;
+  box-shadow:var(--shadow);transition:transform 0.2s,box-shadow 0.2s;
+  position:relative;overflow:hidden;
+}
+.scard::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--forest),var(--gold2));}
+.scard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
+.sval{font-family:'Cormorant Garamond',serif;font-size:2.1rem;font-weight:700;color:var(--forest);}
+.slbl{font-size:0.68rem;color:#999;text-transform:uppercase;letter-spacing:0.08em;margin-top:3px;}
+
+/* ---- PANEL ---- */
+.panel{background:#fff;border:1px solid var(--border2);border-radius:13px;
+  padding:1.5rem;margin-bottom:1.2rem;box-shadow:var(--shadow);}
+.ptitle{
+  font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;
+  color:var(--forest);margin-bottom:1rem;padding-bottom:10px;
+  border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;
+}
+.ptitle em{font-style:normal;color:var(--gold);}
+.ptitle-icon{width:28px;height:28px;border-radius:7px;
+  background:linear-gradient(135deg,var(--forest),var(--forest2));
+  display:flex;align-items:center;justify-content:center;font-size:0.85rem;}
+
+/* ---- CLASS GRID ---- */
+.clsgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:10px;}
+.clscard{
+  border-radius:11px;padding:1.1rem;cursor:pointer;
+  transition:all 0.22s;border:1.5px solid transparent;position:relative;overflow:hidden;
+}
+.clscard.jss{background:linear-gradient(145deg,#e8f5ee,#d4eddf);}
+.clscard.sss{background:linear-gradient(145deg,#fef7e0,#fceabb);}
+.clscard:hover{transform:translateY(-3px);border-color:var(--forest3);box-shadow:var(--shadow-lg);}
+.clscard .cic{font-size:1.7rem;margin-bottom:6px;}
+.clscard .cnm{font-size:0.9rem;font-weight:700;color:var(--forest);}
+.clscard .cct{font-size:0.72rem;color:#777;margin-top:3px;}
+
+/* ---- ACTIVITY ---- */
+.aitem{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+.aitem:last-child{border:none;}
+.adot{width:8px;height:8px;border-radius:50%;background:var(--forest3);
+  margin-top:6px;flex-shrink:0;}
+.adot.gold{background:var(--gold2);}
+.atxt{font-size:0.83rem;color:var(--ink);}
+.atm{font-size:0.7rem;color:#aaa;margin-top:2px;}
+
+/* ---- TABLE ---- */
+.twrap{overflow-x:auto;border-radius:9px;border:1px solid var(--border2);}
+table{width:100%;border-collapse:collapse;font-size:0.83rem;}
+th{background:var(--forest);color:rgba(255,255,255,0.9);padding:10px 12px;
+  text-align:left;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;}
+th:first-child{border-radius:9px 0 0 0;}
+th:last-child{border-radius:0 9px 0 0;}
+td{padding:9px 12px;border-bottom:1px solid var(--border2);vertical-align:middle;}
+tr:last-child td{border:none;}
+tr:hover td{background:var(--gold-pale);}
+.mono{font-family:'JetBrains Mono',monospace;font-size:0.78rem;}
+.badge{display:inline-block;padding:3px 9px;border-radius:20px;
+  font-size:0.69rem;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.bA{background:#d1fae5;color:#065f46;}
+.bB{background:#dbeafe;color:#1e40af;}
+.bC{background:#fef3c7;color:#78350f;}
+.bD{background:#fee2e6;color:#9f1239;}
+.bF{background:#fecaca;color:#7f1d1d;}
+
+/* ---- SCORE INPUTS ---- */
+.sinp{
+  width:54px;padding:5px 4px;
+  background:var(--warm);border:1.5px solid #ddd;border-radius:6px;
+  font-family:'JetBrains Mono',monospace;font-size:0.82rem;text-align:center;
+  color:var(--ink);transition:border 0.2s;
+}
+.sinp:focus{outline:none;border-color:var(--forest3);background:#fff;}
+.stot{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--forest);}
+
+/* ---- FORM ROW ---- */
+.frow{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;margin-bottom:1rem;}
+
+/* ---- BUTTONS ---- */
+.btn{display:inline-flex;align-items:center;gap:6px;
+  padding:9px 18px;border-radius:8px;border:none;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;font-weight:700;
+  cursor:pointer;transition:all 0.18s;letter-spacing:0.02em;}
+.btn-forest{background:var(--forest);color:#fff;}
+.btn-forest:hover{background:var(--forest2);transform:translateY(-1px);}
+.btn-gold{background:var(--gold2);color:#fff;}
+.btn-gold:hover{background:var(--gold);}
+.btn-ghost{background:transparent;border:1.5px solid var(--border2);color:var(--ink);}
+.btn-ghost:hover{border-color:var(--forest3);color:var(--forest);}
+.btn-sm{padding:5px 12px;font-size:0.75rem;}
+
+/* ---- RESULT SHEET ---- */
+.rs-outer{margin-top:1.5rem;}
+.rs-actions{display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+.rs{background:#fff;border-radius:13px;padding:2rem;box-shadow:var(--shadow-lg);
+  border:1px solid var(--border2);}
+.rs-hd{text-align:center;padding-bottom:14px;margin-bottom:14px;
+  border-bottom:2px solid var(--forest);}
+.rs-hd h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:900;
+  color:var(--forest);letter-spacing:0.03em;}
+.rs-hd p{font-size:0.76rem;color:#777;margin-top:3px;}
+.rs-hd .session{font-size:0.72rem;color:var(--gold);font-weight:600;
+  margin-top:5px;letter-spacing:0.06em;text-transform:uppercase;}
+.rs-meta{display:grid;grid-template-columns:1fr 1fr;gap:6px 2rem;
+  padding:12px;background:var(--warm);border-radius:8px;margin-bottom:14px;font-size:0.82rem;}
+.rs-meta .ml{color:#888;font-size:0.72rem;}
+.rs-meta .mv{font-weight:700;color:var(--ink);}
+.rs table{width:100%;border-collapse:collapse;font-size:0.79rem;margin-bottom:12px;}
+.rs th{background:var(--forest);color:#fff;padding:8px 10px;
+  font-size:0.67rem;text-transform:uppercase;letter-spacing:0.06em;}
+.rs td{padding:7px 10px;border-bottom:1px solid #f0ece0;}
+.rs tr:hover td{background:#faf6ec;}
+.rs-sum{display:flex;flex-wrap:wrap;gap:10px;padding:14px;
+  background:var(--gold-pale);border-radius:9px;border:1px solid rgba(184,134,11,0.2);}
+.rs-si{text-align:center;flex:1;min-width:80px;}
+.rs-sv{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:var(--forest);}
+.rs-sl{font-size:0.67rem;color:#888;text-transform:uppercase;letter-spacing:0.06em;}
+.rs-ft{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  margin-top:14px;padding-top:12px;border-top:1px solid #e8e0d0;
+  font-size:0.76rem;color:#999;}
+
+/* ---- BROADSHEET ---- */
+.bs th{font-size:0.62rem;padding:7px 6px;white-space:nowrap;}
+.bs td{font-size:0.74rem;padding:7px 6px;font-family:'JetBrains Mono',monospace;}
+
+/* ---- DEMO BADGE ---- */
+.demo-pill{
+  position:fixed;bottom:16px;right:16px;z-index:999;
+  background:var(--gold2);color:var(--forest);
+  border-radius:20px;padding:6px 16px;font-size:0.7rem;font-weight:800;
+  letter-spacing:0.08em;box-shadow:0 4px 16px rgba(184,134,11,0.45);
+  font-family:'Plus Jakarta Sans',sans-serif;
+}
+
+@media(max-width:640px){
+  section{padding:1rem;}
+  nav{display:none;}
+  .stats{grid-template-columns:1fr 1fr;}
+  .rs-meta{grid-template-columns:1fr;}
+  header{padding:0 1rem;}
+}
+
+@media print{
+  header,.demo-pill,.rs-actions,.nb,.btn-out,nav,#main-nav,.demo-bar,.ph .btn{display:none!important;}
+  section{display:block!important;padding:0;}
+  .panel,.rs{box-shadow:none!important;}
+}
+</style>
+</head>
+<body>
+
+<div class="demo-pill">DEMO MODE</div>
+
+<header>
+  <div class="logo">
+    <div class="logo-seal">R</div>
+    <div class="logo-words">
+      <h1>Rehoteq Global Institute</h1>
+      <p>Result Management System</p>
+    </div>
+  </div>
+  <nav id="main-nav" style="display:none">
+    <button class="nb active" onclick="go('dashboard',this)">Dashboard</button>
+    <button class="nb" onclick="go('score',this)" id="nb-score">Score Entry</button>
+    <button class="nb" onclick="go('results',this)">Results</button>
+    <button class="nb" onclick="go('broadsheet',this)" id="nb-broad">Broadsheet</button>
+    <button class="nb" onclick="go('admin',this)" id="nb-admin">Admin</button>
+  </nav>
+  <div class="hdr-r">
+    <div class="upill" id="upill"><div class="live-dot"></div><span id="ulbl">User</span></div>
+    <button class="btn-out" id="btnout" onclick="logout()">Logout</button>
+  </div>
+</header>
+
+<!-- LOGIN -->
+<section id="login" class="active">
+  <div class="lcard">
+    <div class="lcard-top">
+      <div class="lseal">R</div>
+      <h2>Rehoteq Global Institute</h2>
+      <p>Secure Result Management Portal</p>
+    </div>
+    <div class="rtabs">
+      <button class="rtab active" onclick="setRole('admin',this)">Admin</button>
+      <button class="rtab" onclick="setRole('teacher',this)">Teacher</button>
+      <button class="rtab" onclick="setRole('hod',this)">HOD</button>
+      <button class="rtab" onclick="setRole('student',this)">Student</button>
+    </div>
+    <div class="fg" id="fg-user">
+      <label>Full Name / Username</label>
+      <input type="text" id="l-user" placeholder="Enter your name"/>
+    </div>
+    <div class="fg" id="fg-cls" style="display:none">
+      <label>Your Class</label>
+      <select id="l-cls">
+        <option>SSS 1</option><option>SSS 2</option><option>SSS 3</option>
+        <option>JSS 1</option><option>JSS 2</option><option>JSS 3</option>
+      </select>
+    </div>
+    <div class="fg" id="fg-pass">
+      <label>Password</label>
+      <input type="password" id="l-pass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()"/>
+    </div>
+    <button class="btn-login" onclick="doLogin()">Sign In</button>
+    <div class="lhint">
+      Admin: <b>admin123</b> &nbsp;|&nbsp; Teacher / HOD: <b>teacher123</b> &nbsp;|&nbsp; Student: <b>no password</b>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard">
+  <div class="demo-bar" style="color:rgba(255,255,255,0.85)">
+    <span style="font-size:1rem">🎬</span>
+    <span><b>DEMO MODE</b> - Live demonstration of the Rehoteq Result Management System. All data is pre-loaded for illustration.</span>
+  </div>
+  <div class="ph">
+    <div><h2>School <em>Dashboard</em></h2><p>2024/2025 Academic Session - Second Term</p></div>
+  </div>
+  <div class="stats">
+    <div class="scard"><div class="sval">847</div><div class="slbl">Total Students</div></div>
+    <div class="scard"><div class="sval">42</div><div class="slbl">Teaching Staff</div></div>
+    <div class="scard"><div class="sval">12</div><div class="slbl">Classes</div></div>
+    <div class="scard"><div class="sval">6,240</div><div class="slbl">Results Entered</div></div>
+    <div class="scard"><div class="sval">68%</div><div class="slbl">Avg. Score</div></div>
+  </div>
+  <div class="panel">
+    <div class="ptitle"><div class="ptitle-icon">📚</div>Classes <em>Overview</em></div>
+    <div class="clsgrid">
+      <div class="clscard jss"><div class="cic">📗</div><div class="cnm">JSS 1</div><div class="cct">145 students - 12 subjects</div></div>
+      <div class="clscard jss"><div class="cic">📗</div><div class="cnm">JSS 2</div><div class="cct">138 students - 12 subjects</div></div>
+      <div class="clscard jss"><div class="cic">📗</div><div class="cnm">JSS 3</div><div class="cct">130 students - 12 subjects</div></div>
+      <div class="clscard sss"><div class="cic">📘</div><div class="cnm">SSS 1</div><div class="cct">158 students - 9 subjects</div></div>
+      <div class="clscard sss"><div class="cic">📘</div><div class="cnm">SSS 2</div><div class="cct">142 students - 9 subjects</div></div>
+      <div class="clscard sss"><div class="cic">📘</div><div class="cnm">SSS 3</div><div class="cct">134 students - 9 subjects</div></div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="ptitle"><div class="ptitle-icon">📢</div>Recent <em>Activity</em></div>
+    <div class="aitem"><div class="adot"></div><div><div class="atxt">Scores submitted for Mathematics - SSS 2</div><div class="atm">Today 2:14pm - Mr. Adeyemi</div></div></div>
+    <div class="aitem"><div class="adot"></div><div><div class="atxt">Scores submitted for English Language - JSS 3</div><div class="atm">Today 1:45pm - Mrs. Okonkwo</div></div></div>
+    <div class="aitem"><div class="adot gold"></div><div><div class="atxt">New student registered - SSS 1</div><div class="atm">Today 11:20am - Admin</div></div></div>
+    <div class="aitem"><div class="adot gold"></div><div><div class="atxt">Broadsheet downloaded - JSS 1</div><div class="atm">Yesterday - HOD</div></div></div>
+    <div class="aitem"><div class="adot"></div><div><div class="atxt">Scores submitted for Biology - SSS 3</div><div class="atm">Yesterday - Mr. Fashola</div></div></div>
+  </div>
+</section>
+
+<!-- SCORE ENTRY -->
+<section id="score">
+  <div class="ph">
+    <div><h2>Score <em>Entry</em></h2><p>Enter CA and examination scores for your class</p></div>
+    <button class="btn btn-forest" onclick="submitScores()">Submit All Scores</button>
+  </div>
+  <div class="panel">
+    <div class="ptitle"><div class="ptitle-icon">📌</div>Select <em>Class and Subject</em></div>
+    <div class="frow">
+      <div class="fg"><label>Class</label>
+        <select id="sc-cls" onchange="loadScoreTable()">
+          <option value="">-- Select Class --</option>
+          <option>SSS 1</option><option>SSS 2</option><option>SSS 3</option>
+          <option>JSS 1</option><option>JSS 2</option><option>JSS 3</option>
+        </select></div>
+      <div class="fg"><label>Subject</label>
+        <select id="sc-subj" onchange="loadScoreTable()">
+          <option value="">-- Select Subject --</option>
+          <option>Mathematics</option><option>English Language</option>
+          <option>Biology</option><option>Chemistry</option><option>Physics</option>
+          <option>Economics</option><option>Government</option>
+          <option>Literature in English</option><option>Agricultural Science</option>
+          <option>Civic Education</option><option>Computer Studies</option>
+        </select></div>
+      <div class="fg"><label>Term</label>
+        <select><option>First Term</option><option selected>Second Term</option><option>Third Term</option></select></div>
+      <div class="fg"><label>Session</label><input type="text" value="2024/2025"/></div>
+    </div>
+  </div>
+  <div class="panel" id="sc-panel" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;
+      flex-wrap:wrap;gap:8px;margin-bottom:1rem;">
+      <div class="ptitle" style="margin:0;border:none;padding:0" id="sc-title">Enter <em>Scores</em></div>
+      <span style="font-size:0.72rem;color:#999;background:var(--warm);
+        padding:5px 12px;border-radius:20px;border:1px solid var(--border)">
+        Test1(10) + Test2(10) + Test3(10) = CA(30) + Exam(70) = Total(100)
+      </span>
+    </div>
+    <div class="twrap">
+      <table>
+        <thead><tr>
+          <th>#</th><th>Reg. No.</th><th>Student Name</th>
+          <th>Test 1</th><th>Test 2</th><th>Test 3</th>
+          <th>CA (30)</th><th>Exam (70)</th><th>Total</th><th>Grade</th>
+        </tr></thead>
+        <tbody id="sc-body"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results">
+  <div class="ph">
+    <div><h2>Student <em>Results</em></h2><p>Search and view individual result sheets</p></div>
+  </div>
+  <div class="panel">
+    <div class="frow">
+      <div class="fg"><label>Filter by Class</label>
+        <select id="r-cls" onchange="searchResults()">
+          <option value="">All Classes</option>
+          <option>SSS 1</option><option>SSS 2</option><option>SSS 3</option>
+          <option>JSS 1</option><option>JSS 2</option><option>JSS 3</option>
+        </select></div>
+      <div class="fg"><label>Search Student</label>
+        <input type="text" id="r-search" placeholder="Name or Reg. No." oninput="searchResults()"/></div>
+    </div>
+    <div class="twrap">
+      <table>
+        <thead><tr>
+          <th>Reg. No.</th><th>Student Name</th><th>Class</th>
+          <th>Subjects</th><th>Average</th><th>Grade</th><th></th>
+        </tr></thead>
+        <tbody id="r-body"></tbody>
+      </table>
+    </div>
+  </div>
+  <div id="rs-outer" style="display:none" class="rs-outer">
+    <div class="rs-actions">
+      <span style="font-size:0.95rem;font-weight:700;color:var(--forest);
+        font-family:'Cormorant Garamond',serif">Result Sheet</span>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('rs-outer').style.display='none'">Close</button>
+        <button class="btn btn-gold btn-sm" onclick="window.print()">Print PDF</button>
+      </div>
+    </div>
+    <div class="rs" id="rs-content"></div>
+  </div>
+</section>
+
+<!-- BROADSHEET -->
+<section id="broadsheet">
+  <div class="ph">
+    <div><h2>Class <em>Broadsheet</em></h2><p>Full class performance summary - downloadable as Excel/CSV</p></div>
+    <button class="btn btn-gold" onclick="alert('In the live system this downloads a full CSV file that opens in Excel or Google Sheets!')">Download CSV</button>
+  </div>
+  <div class="panel">
+    <div class="frow">
+      <div class="fg"><label>Class</label>
+        <select id="bs-cls" onchange="loadBroadsheet()">
+          <option>SSS 2</option><option>SSS 1</option><option>SSS 3</option>
+          <option>JSS 1</option><option>JSS 2</option><option>JSS 3</option>
+        </select></div>
+      <div class="fg"><label>Term</label>
+        <select><option>First Term</option><option selected>Second Term</option><option>Third Term</option></select></div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="ptitle"><div class="ptitle-icon">📋</div>SSS 2 - <em>Second Term Broadsheet</em></div>
+    <div class="twrap">
+      <table class="bs" id="bs-table">
+        <thead id="bs-head"></thead>
+        <tbody id="bs-body"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ADMIN -->
+<section id="admin">
+  <div class="ph">
+    <div><h2>Admin <em>Panel</em></h2><p>Manage school settings, staff and students</p></div>
+  </div>
+  <div class="stats">
+    <div class="scard"><div class="sval">847</div><div class="slbl">Students</div></div>
+    <div class="scard"><div class="sval">42</div><div class="slbl">Staff</div></div>
+    <div class="scard"><div class="sval">6,240</div><div class="slbl">Results</div></div>
+    <div class="scard"><div class="sval" style="color:#16a34a;font-size:1.2rem">LIVE</div><div class="slbl">Cloud Sync</div></div>
+  </div>
+  <div class="panel">
+    <div class="ptitle"><div class="ptitle-icon">🏫</div>School <em>Settings</em></div>
+    <div class="frow">
+      <div class="fg"><label>School Name</label><input type="text" value="Rehoteq Global Institute"/></div>
+      <div class="fg"><label>Session</label><input type="text" value="2024/2025"/></div>
+      <div class="fg"><label>Term</label>
+        <select><option>First Term</option><option selected>Second Term</option><option>Third Term</option></select></div>
+      <div class="fg"><label>Principal</label><input type="text" value="Dr. Emmanuel Oladipo"/></div>
+    </div>
+    <button class="btn btn-forest" onclick="alert('Settings saved! (Demo)')">Save Settings</button>
+  </div>
+  <div class="panel">
+    <div class="ptitle"><div class="ptitle-icon">👥</div>Add <em>New Student</em></div>
+    <div class="frow">
+      <div class="fg"><label>Reg. No.</label><input type="text" placeholder="e.g. RGI/2025/001"/></div>
+      <div class="fg"><label>Full Name</label><input type="text" placeholder="Student full name"/></div>
+      <div class="fg"><label>Class</label>
+        <select><option>SSS 1</option><option>SSS 2</option><option>SSS 3</option><option>JSS 1</option><option>JSS 2</option><option>JSS 3</option></select></div>
+      <div class="fg"><label>Gender</label><select><option>Male</option><option>Female</option></select></div>
+    </div>
+    <button class="btn btn-forest" onclick="alert('Student added! (Demo)')">Add Student</button>
+  </div>
+  <div class="panel">
+    <div class="ptitle"><div class="ptitle-icon">🔐</div>Change <em>Passwords</em></div>
+    <div class="frow">
+      <div class="fg"><label>New Admin Password</label><input type="password" placeholder="New admin password"/></div>
+      <div class="fg"><label>New Teacher Password</label><input type="password" placeholder="New teacher password"/></div>
+    </div>
+    <button class="btn btn-forest" onclick="alert('Passwords updated! (Demo)')">Update Passwords</button>
+  </div>
+  <div class="panel">
+    <div class="ptitle"><div class="ptitle-icon">💾</div>Data <em>Management</em></div>
+    <p style="font-size:0.82rem;color:#888;margin-bottom:1rem">Export all results as backup or import data from another device.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-ghost" onclick="alert('In live system: downloads full JSON backup of all data')">Export Backup</button>
+      <button class="btn btn-ghost" onclick="alert('In live system: import data from another device or old system')">Import Data</button>
+    </div>
+  </div>
+</section>
+
+<script>
+var ROLE="admin";
+var CURRENT={};
+
+var STUDENTS=[
+  {reg:"RGI/SS2/001",name:"ADEYEMI OLUWAFEMI DANIEL",cls:"SSS 2",gender:"Male"},
+  {reg:"RGI/SS2/002",name:"AKINTOLA BLESSING GRACE",cls:"SSS 2",gender:"Female"},
+  {reg:"RGI/SS2/003",name:"BABATUNDE CHINONSO PAUL",cls:"SSS 2",gender:"Male"},
+  {reg:"RGI/SS2/004",name:"CHUKWU AMARACHI FAITH",cls:"SSS 2",gender:"Female"},
+  {reg:"RGI/SS2/005",name:"DADA OLUWASEUN JAMES",cls:"SSS 2",gender:"Male"},
+  {reg:"RGI/SS2/006",name:"EZE NGOZI PATRICIA",cls:"SSS 2",gender:"Female"},
+  {reg:"RGI/SS2/007",name:"FASHOLA TOBILOBA RUTH",cls:"SSS 2",gender:"Female"},
+  {reg:"RGI/SS2/008",name:"GBADAMOSI RIDWAN ADEBAYO",cls:"SSS 2",gender:"Male"},
+  {reg:"RGI/SS2/009",name:"IBRAHIM HAUWA AMINA",cls:"SSS 2",gender:"Female"},
+  {reg:"RGI/SS2/010",name:"JOHNSON EMEKA BRIGHT",cls:"SSS 2",gender:"Male"},
+  {reg:"RGI/SS1/001",name:"AFOLABI TAIWO BLESSING",cls:"SSS 1",gender:"Female"},
+  {reg:"RGI/SS1/002",name:"BELLO MUHAMMED ALIYU",cls:"SSS 1",gender:"Male"},
+  {reg:"RGI/SS1/003",name:"OKONKWO CHIDINMA PEACE",cls:"SSS 1",gender:"Female"},
+  {reg:"RGI/JS1/001",name:"ADELEKE SAMUEL OLUWATOBI",cls:"JSS 1",gender:"Male"},
+  {reg:"RGI/JS1/002",name:"NWOSU CHISOM ANGELA",cls:"JSS 1",gender:"Female"}
+];
+
+var SUBJ_SS=["Mathematics","English Language","Biology","Chemistry","Physics","Economics","Government","Literature in English","Agricultural Science"];
+
+var SC={
+  "RGI/SS2/001":{"Mathematics":{t1:9,t2:8,t3:9,exam:65},"English Language":{t1:8,t2:7,t3:8,exam:58},"Biology":{t1:9,t2:9,t3:8,exam:62},"Chemistry":{t1:7,t2:8,t3:7,exam:55},"Physics":{t1:8,t2:7,t3:8,exam:60},"Economics":{t1:9,t2:8,t3:9,exam:65},"Government":{t1:7,t2:8,t3:7,exam:52},"Literature in English":{t1:8,t2:9,t3:8,exam:60},"Agricultural Science":{t1:9,t2:8,t3:9,exam:63}},
+  "RGI/SS2/002":{"Mathematics":{t1:7,t2:8,t3:7,exam:55},"English Language":{t1:9,t2:9,t3:8,exam:65},"Biology":{t1:8,t2:7,t3:8,exam:58},"Chemistry":{t1:6,t2:7,t3:6,exam:48},"Physics":{t1:7,t2:6,t3:7,exam:50},"Economics":{t1:8,t2:9,t3:8,exam:62},"Government":{t1:9,t2:8,t3:9,exam:65},"Literature in English":{t1:9,t2:9,t3:9,exam:67},"Agricultural Science":{t1:8,t2:7,t3:8,exam:56}},
+  "RGI/SS2/003":{"Mathematics":{t1:10,t2:9,t3:10,exam:68},"English Language":{t1:8,t2:8,t3:7,exam:60},"Biology":{t1:9,t2:10,t3:9,exam:66},"Chemistry":{t1:9,t2:9,t3:10,exam:65},"Physics":{t1:10,t2:9,t3:10,exam:67},"Economics":{t1:8,t2:9,t3:8,exam:62},"Government":{t1:7,t2:8,t3:7,exam:55},"Literature in English":{t1:8,t2:7,t3:8,exam:57},"Agricultural Science":{t1:9,t2:9,t3:8,exam:64}},
+  "RGI/SS2/004":{"Mathematics":{t1:6,t2:5,t3:6,exam:42},"English Language":{t1:8,t2:7,t3:8,exam:55},"Biology":{t1:7,t2:6,t3:7,exam:50},"Chemistry":{t1:5,t2:6,t3:5,exam:38},"Physics":{t1:6,t2:5,t3:6,exam:40},"Economics":{t1:7,t2:8,t3:7,exam:53},"Government":{t1:8,t2:7,t3:8,exam:56},"Literature in English":{t1:8,t2:8,t3:9,exam:60},"Agricultural Science":{t1:7,t2:6,t3:7,exam:48}},
+  "RGI/SS2/005":{"Mathematics":{t1:8,t2:9,t3:8,exam:62},"English Language":{t1:7,t2:8,t3:7,exam:56},"Biology":{t1:8,t2:8,t3:9,exam:61},"Chemistry":{t1:8,t2:7,t3:8,exam:58},"Physics":{t1:9,t2:8,t3:9,exam:64},"Economics":{t1:7,t2:8,t3:7,exam:55},"Government":{t1:6,t2:7,t3:6,exam:50},"Literature in English":{t1:7,t2:6,t3:7,exam:52},"Agricultural Science":{t1:8,t2:8,t3:7,exam:59}}
+};
+
+function grade(t){
+  if(t>=75)return"A1";if(t>=70)return"B2";if(t>=65)return"B3";
+  if(t>=60)return"C4";if(t>=55)return"C5";if(t>=50)return"C6";
+  if(t>=45)return"D7";if(t>=40)return"E8";return"F9";
+}
+function gc(g){
+  if(!g||g==="na")return"A";
+  var c=g.charAt(0);
+  if(c==="A")return"A";if(c==="B")return"B";if(c==="C")return"C";if(c==="D"||c==="E")return"D";return"F";
+}
+function suf(n){return n===1?"st":n===2?"nd":n===3?"rd":"th";}
+
+function setRole(r,btn){
+  ROLE=r;
+  var tabs=document.querySelectorAll(".rtab");
+  for(var i=0;i<tabs.length;i++) tabs[i].classList.remove("active");
+  btn.classList.add("active");
+  document.getElementById("fg-cls").style.display=(r==="student")?"block":"none";
+  document.getElementById("fg-pass").style.display=(r==="student")?"none":"block";
+}
+
+function doLogin(){
+  var user=document.getElementById("l-user").value.trim();
+  if(!user)user="Demo User";
+  var pass=document.getElementById("l-pass").value;
+  if(ROLE==="admin"&&pass!=="admin123"){alert("Wrong password! Use: admin123");return;}
+  if((ROLE==="teacher"||ROLE==="hod")&&pass!=="teacher123"){alert("Wrong password! Use: teacher123");return;}
+  if(ROLE==="student"){
+    var cls=document.getElementById("l-cls").value;
+    CURRENT={role:"student",name:user,cls:cls};
+    showStudentOnly(user,cls);return;
+  }
+  CURRENT={role:ROLE,name:user};
+  document.getElementById("main-nav").style.display="flex";
+  document.getElementById("upill").style.display="flex";
+  document.getElementById("btnout").style.display="block";
+  document.getElementById("ulbl").textContent=ROLE.charAt(0).toUpperCase()+ROLE.slice(1)+": "+user;
+  document.getElementById("nb-admin").style.display=(ROLE==="admin")?"":"none";
+  document.getElementById("nb-broad").style.display=(ROLE==="admin"||ROLE==="hod")?"":"none";
+  var secs=document.querySelectorAll("section");
+  for(var i=0;i<secs.length;i++) secs[i].classList.remove("active");
+  document.getElementById("dashboard").classList.add("active");
+  var nbs=document.querySelectorAll(".nb");
+  for(var i=0;i<nbs.length;i++) nbs[i].classList.remove("active");
+  nbs[0].classList.add("active");
+  renderResults();loadBroadsheet();
+}
+
+function logout(){
+  document.getElementById("main-nav").style.display="none";
+  document.getElementById("upill").style.display="none";
+  document.getElementById("btnout").style.display="none";
+  var secs=document.querySelectorAll("section");
+  for(var i=0;i<secs.length;i++) secs[i].classList.remove("active");
+  document.getElementById("login").classList.add("active");
+  document.getElementById("l-pass").value="";
+  document.getElementById("rs-outer").style.display="none";
+}
+
+function go(id,btn){
+  var secs=document.querySelectorAll("section");
+  for(var i=0;i<secs.length;i++) secs[i].classList.remove("active");
+  document.getElementById(id).classList.add("active");
+  var nbs=document.querySelectorAll(".nb");
+  for(var i=0;i<nbs.length;i++) nbs[i].classList.remove("active");
+  if(btn)btn.classList.add("active");
+}
+
+function loadScoreTable(){
+  var cls=document.getElementById("sc-cls").value;
+  var subj=document.getElementById("sc-subj").value;
+  if(!cls||!subj){document.getElementById("sc-panel").style.display="none";return;}
+  document.getElementById("sc-panel").style.display="block";
+  document.getElementById("sc-title").innerHTML=cls+" - <em>"+subj+"</em>";
+  var students=[];
+  for(var i=0;i<STUDENTS.length;i++){if(STUDENTS[i].cls===cls)students.push(STUDENTS[i]);}
+  if(!students.length){
+    students=[
+      {reg:"RGI/"+cls.replace(" ","")+"/001",name:"DEMO STUDENT ONE",cls:cls,gender:"Male"},
+      {reg:"RGI/"+cls.replace(" ","")+"/002",name:"DEMO STUDENT TWO",cls:cls,gender:"Female"},
+      {reg:"RGI/"+cls.replace(" ","")+"/003",name:"DEMO STUDENT THREE",cls:cls,gender:"Male"}
+    ];
+  }
+  var rows="";
+  for(var i=0;i<students.length;i++){
+    var s=students[i];
+    var sv=SC[s.reg]?SC[s.reg][subj]:null;
+    var t1=sv?sv.t1:"",t2=sv?sv.t2:"",t3=sv?sv.t3:"",ex=sv?sv.exam:"";
+    var ca=sv?(sv.t1+sv.t2+sv.t3):0;
+    var tot=sv?(ca+sv.exam):0;
+    var g=tot?grade(tot):"na";
+    rows+="<tr id='sr"+i+"'>";
+    rows+="<td>"+(i+1)+"</td><td class='mono'>"+s.reg+"</td><td>"+s.name+"</td>";
+    rows+="<td><input class='sinp' type='number' min='0' max='10' value='"+t1+"' oninput='recalc("+i+")'/></td>";
+    rows+="<td><input class='sinp' type='number' min='0' max='10' value='"+t2+"' oninput='recalc("+i+")'/></td>";
+    rows+="<td><input class='sinp' type='number' min='0' max='10' value='"+t3+"' oninput='recalc("+i+")'/></td>";
+    rows+="<td class='stot' id='ca"+i+"'>"+(ca||"0")+"</td>";
+    rows+="<td><input class='sinp' type='number' min='0' max='70' value='"+ex+"' oninput='recalc("+i+")'/></td>";
+    rows+="<td class='stot' id='tot"+i+"'>"+(tot||"0")+"</td>";
+    rows+="<td><span class='badge b"+gc(g)+"'>"+g+"</span></td>";
+    rows+="</tr>";
+  }
+  document.getElementById("sc-body").innerHTML=rows;
+}
+
+function recalc(i){
+  var row=document.getElementById("sr"+i);
+  var inp=row.querySelectorAll(".sinp");
+  var t1=parseFloat(inp[0].value)||0,t2=parseFloat(inp[1].value)||0,t3=parseFloat(inp[2].value)||0,ex=parseFloat(inp[3].value)||0;
+  var ca=t1+t2+t3,tot=ca+ex;
+  document.getElementById("ca"+i).textContent=ca;
+  document.getElementById("tot"+i).textContent=tot;
+}
+
+function submitScores(){
+  alert("Scores submitted and synced to cloud in real-time!\n\nIn the live system, scores are instantly saved to Firebase and visible to HOD and Admin on any device anywhere.");
+}
+
+function buildResultsTable(students){
+  var rows="";
+  for(var i=0;i<students.length;i++){
+    var s=students[i];
+    var sc=SC[s.reg];
+    var avg="na",g="na";
+    if(sc){
+      var keys=Object.keys(sc),sum=0;
+      for(var k=0;k<keys.length;k++){var v=sc[keys[k]];sum+=(v.t1+v.t2+v.t3+v.exam);}
+      avg=Math.round(sum/keys.length);g=grade(avg);
+    }
+    rows+="<tr><td class='mono'>"+s.reg+"</td><td>"+s.name+"</td><td>"+s.cls+"</td>";
+    rows+="<td>"+(sc?Object.keys(sc).length:0)+" subjects</td>";
+    rows+="<td class='stot'>"+(avg!=="na"?avg+"%":"na")+"</td>";
+    rows+="<td><span class='badge b"+gc(g)+"'>"+g+"</span></td>";
+    rows+="<td><button class='btn btn-ghost btn-sm' onclick='viewResult(\""+s.reg+"\")'>View Result</button></td></tr>";
+  }
+  document.getElementById("r-body").innerHTML=rows;
+}
+
+function renderResults(){buildResultsTable(STUDENTS.slice(0,10));}
+
+function searchResults(){
+  var q=(document.getElementById("r-search").value||"").toLowerCase();
+  var cls=document.getElementById("r-cls").value||"";
+  var filtered=[];
+  for(var i=0;i<STUDENTS.length;i++){
+    var s=STUDENTS[i];
+    if((!cls||s.cls===cls)&&(!q||s.name.toLowerCase().indexOf(q)>=0||s.reg.toLowerCase().indexOf(q)>=0))
+      filtered.push(s);
+  }
+  buildResultsTable(filtered);
+}
+
+function viewResult(reg){
+  var s=null;
+  for(var i=0;i<STUDENTS.length;i++){if(STUDENTS[i].reg===reg){s=STUDENTS[i];break;}}
+  if(!s)return;
+  var sc=SC[reg]||{};
+  var keys=Object.keys(sc);
+  var rows="",grandTotal=0,count=0;
+  for(var k=0;k<keys.length;k++){
+    var subj=keys[k],v=sc[subj];
+    var ca=v.t1+v.t2+v.t3,tot=ca+v.exam,g=grade(tot);
+    grandTotal+=tot;count++;
+    var rm=g==="A1"?"Distinction":g.charAt(0)==="B"||g.charAt(0)==="C"?"Credit":g.charAt(0)==="D"||g.charAt(0)==="E"?"Pass":"Fail";
+    rows+="<tr><td>"+subj+"</td><td>"+v.t1+"</td><td>"+v.t2+"</td><td>"+v.t3+"</td>";
+    rows+="<td><b>"+ca+"</b></td><td>"+v.exam+"</td><td><b>"+tot+"</b></td>";
+    rows+="<td>"+g+"</td><td>"+rm+"</td></tr>";
+  }
+  var avg=count?Math.round(grandTotal/count):0;
+  var ovg=grade(avg);
+  var pos=Math.floor(Math.random()*20)+1;
+  var d=new Date();
+  var months=["January","February","March","April","May","June","July","August","September","October","November","December"];
+  var dateStr=d.getDate()+" "+months[d.getMonth()]+" "+d.getFullYear();
+  var html="<div class='rs-hd'>";
+  html+="<h2>REHOTEQ GLOBAL INSTITUTE</h2>";
+  html+="<p>Excellence - Integrity - Innovation</p>";
+  html+="<div class='session'>2024/2025 Academic Session - Second Term Report Card</div>";
+  html+="</div>";
+  html+="<div class='rs-meta'>";
+  html+="<div><div class='ml'>Student Name</div><div class='mv'>"+s.name+"</div></div>";
+  html+="<div><div class='ml'>Reg. Number</div><div class='mv'>"+s.reg+"</div></div>";
+  html+="<div><div class='ml'>Class</div><div class='mv'>"+s.cls+"</div></div>";
+  html+="<div><div class='ml'>Gender</div><div class='mv'>"+s.gender+"</div></div>";
+  html+="<div><div class='ml'>Position in Class</div><div class='mv'>"+pos+suf(pos)+" of 45</div></div>";
+  html+="<div><div class='ml'>No. of Subjects</div><div class='mv'>"+count+"</div></div>";
+  html+="</div>";
+  html+="<table><thead><tr><th>Subject</th><th>Test 1</th><th>Test 2</th><th>Test 3</th>";
+  html+="<th>CA (30)</th><th>Exam (70)</th><th>Total</th><th>Grade</th><th>Remark</th></tr></thead>";
+  html+="<tbody>"+rows+"</tbody></table>";
+  html+="<div class='rs-sum'>";
+  html+="<div class='rs-si'><div class='rs-sv'>"+avg+"%</div><div class='rs-sl'>Average</div></div>";
+  html+="<div class='rs-si'><div class='rs-sv'>"+ovg+"</div><div class='rs-sl'>Grade</div></div>";
+  html+="<div class='rs-si'><div class='rs-sv'>"+pos+suf(pos)+"</div><div class='rs-sl'>Position</div></div>";
+  html+="<div class='rs-si'><div class='rs-sv'>"+count+"</div><div class='rs-sl'>Subjects</div></div>";
+  html+="</div>";
+  html+="<div class='rs-ft'>";
+  html+="<span>Class Teacher: _____________________</span>";
+  html+="<span>Principal: Dr. Emmanuel Oladipo</span>";
+  html+="<span>Date: "+dateStr+"</span>";
+  html+="</div>";
+  document.getElementById("rs-content").innerHTML=html;
+  document.getElementById("rs-outer").style.display="block";
+  document.getElementById("rs-outer").scrollIntoView({behavior:"smooth"});
+}
+
+function showStudentOnly(name,cls){
+  document.getElementById("main-nav").style.display="none";
+  document.getElementById("upill").style.display="flex";
+  document.getElementById("btnout").style.display="block";
+  document.getElementById("ulbl").textContent="Student: "+name;
+  var secs=document.querySelectorAll("section");
+  for(var i=0;i<secs.length;i++) secs[i].classList.remove("active");
+  document.getElementById("results").classList.add("active");
+  document.querySelector("#results .panel").style.display="none";
+  var s=null;
+  for(var i=0;i<STUDENTS.length;i++){if(STUDENTS[i].cls===cls){s=STUDENTS[i];break;}}
+  if(s){document.getElementById("rs-outer").style.display="block";viewResult(s.reg);}
+}
+
+function loadBroadsheet(){
+  var subjs=SUBJ_SS;
+  var students=[];
+  for(var i=0;i<STUDENTS.length;i++){if(STUDENTS[i].cls==="SSS 2")students.push(STUDENTS[i]);}
+  function abbr(s){var w=s.split(" "),a="";for(var i=0;i<w.length;i++)a+=w[i].charAt(0);return a;}
+  var hcells="<th>#</th><th>Reg. No.</th><th>Name</th>";
+  for(var j=0;j<subjs.length;j++) hcells+="<th class='bs th'>"+abbr(subjs[j])+"</th>";
+  hcells+="<th>Avg</th><th>Grade</th><th>Pos</th>";
+  document.getElementById("bs-head").innerHTML="<tr>"+hcells+"</tr>";
+  var rows="";
+  for(var i=0;i<students.length;i++){
+    var s=students[i],sc=SC[s.reg],tcells="",sum=0,cnt=0;
+    for(var j=0;j<subjs.length;j++){
+      var v=sc?sc[subjs[j]]:null;
+      if(v){var tot=v.t1+v.t2+v.t3+v.exam;sum+=tot;cnt++;tcells+="<td style='text-align:center'>"+tot+"</td>";}
+      else tcells+="<td style='text-align:center;color:#ccc'>-</td>";
+    }
+    var avg=cnt?Math.round(sum/cnt):0,g=cnt?grade(avg):"na";
+    var p=i+1;
+    rows+="<tr><td>"+(i+1)+"</td><td class='mono' style='white-space:nowrap;font-size:0.72rem'>"+s.reg+"</td>";
+    rows+="<td style='white-space:nowrap;font-size:0.8rem'>"+s.name+"</td>"+tcells;
+    rows+="<td class='stot'>"+(avg?avg+"%":"-")+"</td>";
+    rows+="<td><span class='badge b"+gc(g)+"'>"+g+"</span></td>";
+    rows+="<td style='font-size:0.76rem'>"+p+suf(p)+"</td></tr>";
+  }
+  document.getElementById("bs-body").innerHTML=rows;
+}
+
+renderResults();loadBroadsheet();
+</script>
+</body>
+</html>
